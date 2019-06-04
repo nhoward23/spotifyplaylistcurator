@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate, SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate {
 
     var window: UIWindow?
     
@@ -29,12 +29,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate
             self.configuration.playURI = "spotify:track:20I6sIOMTCkB6w7ryavxtO"
         }
         let manager = SPTSessionManager(configuration: self.configuration, delegate: self)
-        print(manager)
         return manager
     }()
+    
+    lazy var appRemote: SPTAppRemote = {
+        let appRemote = SPTAppRemote(configuration: self.configuration, logLevel: .debug)
+        appRemote.delegate = self
+        return appRemote
+    }()
+    
+    func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
+        print("connected")
+        self.appRemote.playerAPI?.delegate = self
+        self.appRemote.playerAPI?.subscribe(toPlayerState: { (result, error) in
+            if let error = error {
+                debugPrint(error.localizedDescription)
+            }
+        })
+    }
+    func appRemote(_ appRemote: SPTAppRemote, didDisconnectWithError error: Error?) {
+        print("disconnected")
+    }
+    func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {
+        print("failed")
+        if let error = error {
+            print(error)
+        }
+    }
+    func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
+        print("player state changed", playerState.track.name)
+        debugPrint("Track name: %@", playerState.track.name)
+    }
 
     func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
         print("success", session)
+        self.appRemote.connectionParameters.accessToken = session.accessToken
+        self.appRemote.connect()
     }
     func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
         print("fail", error)
@@ -60,6 +90,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        if self.appRemote.isConnected {
+            self.appRemote.disconnect()
+        }
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -73,6 +106,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        if let _ = self.appRemote.connectionParameters.accessToken {
+            self.appRemote.connect()
+        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
