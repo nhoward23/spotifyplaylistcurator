@@ -18,24 +18,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l8C-2m-Son">
-                                <rect key="frame" x="16" y="60" width="382" height="786"/>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l8C-2m-Son">
+                                <rect key="frame" x="16" y="433" width="382" height="30"/>
                                 <color key="backgroundColor" red="0.41568627450000001" green="0.89019607840000003" blue="0.40784313729999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Login with Spotify">
+                                <state key="normal" title="Get Liked Songs">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="titleShadowColor" red="0.46340083399999998" green="0.8980392157" blue="0.30780268300000002" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="loginButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rtj-NY-D3l"/>
+                                    <action selector="getSongsButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uok-P4-Bsr"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fdS-6g-IQ3">
+                                <rect key="frame" x="16" y="479" width="382" height="30"/>
+                                <color key="backgroundColor" red="0.41568627450000001" green="0.89019607840000003" blue="0.40784313729999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Login with Spotigy">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.46340083399999998" green="0.8980392157" blue="0.30780268300000002" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="getSongsButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2i2-Kf-BD5"/>
+                                    <action selector="loginButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cwg-Kc-qxp"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gwY-ud-p61">
+                                <rect key="frame" x="16" y="76" width="382" height="31.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="l8C-2m-Son" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BHo-BQ-axd"/>
+                            <constraint firstItem="fdS-6g-IQ3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="CKm-XF-hHD"/>
                             <constraint firstItem="l8C-2m-Son" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="GDf-by-s9a"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="l8C-2m-Son" secondAttribute="bottom" constant="16" id="ZAI-KC-qae"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fdS-6g-IQ3" secondAttribute="trailing" constant="16" id="Rfx-LU-Eku"/>
+                            <constraint firstItem="fdS-6g-IQ3" firstAttribute="top" secondItem="l8C-2m-Son" secondAttribute="bottom" constant="16" id="WR7-7F-p8i"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="l8C-2m-Son" secondAttribute="trailing" constant="16" id="ZDq-uX-fqT"/>
-                            <constraint firstItem="l8C-2m-Son" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="dW0-u7-mbZ"/>
+                            <constraint firstItem="l8C-2m-Son" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ZEd-Z0-45B"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gwY-ud-p61" secondAttribute="trailing" constant="16" id="rny-dz-3bK"/>
+                            <constraint firstItem="gwY-ud-p61" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="32" id="tQN-Il-oCD"/>
+                            <constraint firstItem="gwY-ud-p61" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="x6z-zl-ZGB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

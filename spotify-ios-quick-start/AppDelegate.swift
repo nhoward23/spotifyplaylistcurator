@@ -13,14 +13,12 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate, SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate {
 
     var window: UIWindow?
-    
     let SpotifyClientID = "e5ee5963d8b34a53ae9c9f74f48c30eb"
     let SpotifyRedirectURL = URL(string: "spotify-ios-quick-start://spotify-login-callback")!
     lazy var configuration = SPTConfiguration(
         clientID: SpotifyClientID,
         redirectURL: SpotifyRedirectURL
     )
-    
     lazy var sessionManager: SPTSessionManager = {
         if let tokenSwapURL = URL(string: "https://spotify-ios-quick-start-swap.herokuapp.com/api/token"),
             let tokenRefreshURL = URL(string: "https://spotify-ios-quick-start-swap.herokuapp.com/api/refresh_token") {
@@ -31,7 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate
         let manager = SPTSessionManager(configuration: self.configuration, delegate: self)
         return manager
     }()
-    
     lazy var appRemote: SPTAppRemote = {
         let appRemote = SPTAppRemote(configuration: self.configuration, logLevel: .debug)
         appRemote.delegate = self
@@ -56,6 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate
             print(error)
         }
     }
+    
     func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
         print("player state changed", playerState.track.name)
         debugPrint("Track name: %@", playerState.track.name)
@@ -81,7 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SPTSessionManagerDelegate
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        let requestedScopes: SPTScope = [.appRemoteControl]
+        let requestedScopes: SPTScope = [.appRemoteControl, .userReadPrivate, .userReadEmail, .userReadBirthDate]
         self.sessionManager.initiateSession(with: requestedScopes, options: .default)
         
         return true

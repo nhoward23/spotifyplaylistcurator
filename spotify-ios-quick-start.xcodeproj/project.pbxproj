@@ -15,6 +15,9 @@
 		D907EEEC22A5EC83003CB080 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D907EEEA22A5EC83003CB080 /* LaunchScreen.storyboard */; };
 		D907EEF522A5EE1F003CB080 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D907EEF422A5EE1F003CB080 /* SpotifyiOS.framework */; };
 		D907EEF922A5EE7A003CB080 /* BridgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D907EEF822A5EE7A003CB080 /* BridgeViewController.m */; };
+		D9313A3922A9D62000DB7007 /* SpotifyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9313A3822A9D62000DB7007 /* SpotifyAPI.swift */; };
+		D9313A3B22AA003A00DB7007 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9313A3A22AA003A00DB7007 /* User.swift */; };
+		D9313A3D22AA032300DB7007 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9313A3C22AA032300DB7007 /* SwiftyJSON.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		D907EEF622A5EE79003CB080 /* spotify-ios-quick-start-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "spotify-ios-quick-start-Bridging-Header.h"; sourceTree = "<group>"; };
 		D907EEF722A5EE7A003CB080 /* BridgeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BridgeViewController.h; path = "spotify-ios-quick-start/BridgeViewController.h"; sourceTree = "<group>"; };
 		D907EEF822A5EE7A003CB080 /* BridgeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = BridgeViewController.m; path = "spotify-ios-quick-start/BridgeViewController.m"; sourceTree = "<group>"; };
+		D9313A3822A9D62000DB7007 /* SpotifyAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyAPI.swift; sourceTree = "<group>"; };
+		D9313A3A22AA003A00DB7007 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		D9313A3C22AA032300DB7007 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +59,7 @@
 				D907EEDC22A5EC81003CB080 /* Products */,
 				D907EEF422A5EE1F003CB080 /* SpotifyiOS.framework */,
 				D907EEF622A5EE79003CB080 /* spotify-ios-quick-start-Bridging-Header.h */,
+				D9313A3C22AA032300DB7007 /* SwiftyJSON.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -69,6 +76,8 @@
 			children = (
 				D907EEDE22A5EC81003CB080 /* AppDelegate.swift */,
 				D907EEE022A5EC81003CB080 /* ViewController.swift */,
+				D9313A3822A9D62000DB7007 /* SpotifyAPI.swift */,
+				D9313A3A22AA003A00DB7007 /* User.swift */,
 				D907EEE222A5EC81003CB080 /* Main.storyboard */,
 				D907EEE822A5EC83003CB080 /* Assets.xcassets */,
 				D907EEEA22A5EC83003CB080 /* LaunchScreen.storyboard */,
@@ -150,9 +159,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9313A3922A9D62000DB7007 /* SpotifyAPI.swift in Sources */,
 				D907EEE722A5EC81003CB080 /* spotify_ios_quick_start.xcdatamodeld in Sources */,
+				D9313A3B22AA003A00DB7007 /* User.swift in Sources */,
 				D907EEF922A5EE7A003CB080 /* BridgeViewController.m in Sources */,
 				D907EEE122A5EC81003CB080 /* ViewController.swift in Sources */,
+				D9313A3D22AA032300DB7007 /* SwiftyJSON.swift in Sources */,
 				D907EEDF22A5EC81003CB080 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
