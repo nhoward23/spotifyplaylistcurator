@@ -10,7 +10,7 @@ import Foundation
 
 struct User {
     var uri: String
-    var imageUrl: String
+    var imageUrl: String?
     var displayName: String
     var id: String
 }

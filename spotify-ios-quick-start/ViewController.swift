@@ -14,14 +14,14 @@ class ViewController: UIViewController, SPTSessionManagerDelegate {
     // MARK: - Spotify Variable Configurations
     
     /*
-     user_id: the users spotify id
+     user: the users holds id, imageURL, displayname, and uri
      accessToken: the current token to use to interface with Spotify's API
      SpotifyClientID: the id for this application
      SpotifyRedirectURL: the url for this application
      configuration: configuration properties for the Spotify Session Manager
      sessionManager: manages session such as authentication
     */
-    var user_id = ""
+    var user = User(uri: "", imageUrl: nil, displayName: "", id: "")
     var accessToken = ""
     let SpotifyClientID = "e5ee5963d8b34a53ae9c9f74f48c30eb"
     let SpotifyRedirectURL = URL(string: "spotify-ios-quick-start://spotify-login-callback")!
@@ -43,6 +43,7 @@ class ViewController: UIViewController, SPTSessionManagerDelegate {
     
     // MARK: - IB Outlets
     @IBOutlet var welcomeLabel: UILabel!
+    @IBOutlet var profileImageView: UIImageView!
     
     
     // MARK: - IB Action Functions
@@ -55,9 +56,8 @@ class ViewController: UIViewController, SPTSessionManagerDelegate {
     }
     
     /*
-     loginButtonPressed(_ sender: Any)
-     desc: this function initiated the Spotify session and authenticates and authorizes user with given scope.
-     note: sessionManager callbacks are called depending on the success of the authorization
+     Desc: this function initiated the Spotify session and authenticates and authorizes user with given scope.
+     Note: sessionManager callbacks are called depending on the success of the authorization
     */
     @IBAction func loginButtonPressed(_ sender: Any) {
         let requestedScopes: SPTScope = [.appRemoteControl, .userReadPrivate, .userReadEmail, .userReadBirthDate]
@@ -78,9 +78,27 @@ class ViewController: UIViewController, SPTSessionManagerDelegate {
         // get the user's information and set userID property
         SpotifyAPI.getUserInfo(accessToken: accessToken, completion: { (userOptional) -> Void in
             if let user = userOptional {
-                print(user.displayName)
+                print("Back in ViewController. Got a valid user.")
+                
+                // update UI to say hello to the user
                 self.welcomeLabel.text = "Welcome, " + user.displayName + "!"
-                self.user_id = user.id
+                
+                // instantiate the user object
+                self.user = user
+                
+                // fetch the image
+                if let url = user.imageUrl {
+                    SpotifyAPI.fetchImage(fromURLString: url, completion: { (image) in
+                        if let image = image {
+                            self.profileImageView.image = image
+                            self.profileImageView.layer.borderWidth = 1.0
+                            self.profileImageView.layer.masksToBounds = false
+                            self.profileImageView.layer.borderColor = UIColor.blue.cgColor
+                            self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2
+                            self.profileImageView.clipsToBounds = true
+                        }
+                    })
+                }
             }
         })
     }
