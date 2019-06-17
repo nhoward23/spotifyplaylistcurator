@@ -84,4 +84,38 @@ struct SpotifyAPI {
         }
         task.resume()
     }
+    
+    static func fetchSavedSongs(accessToken: String, completion: @escaping (Playlist?) -> Void) {
+        
+        // set up the url and request
+        let baseURL = URL(string: "https://api.spotify.com/v1/me/tracks")
+        var components = URLComponents(url: baseURL!, resolvingAgainstBaseURL: true)
+        let queryItemLimit = URLQueryItem(name: "limit", value: "50")
+        let queryItemOffset = URLQueryItem(name: "offset", value: "0")
+        components!.queryItems = [queryItemLimit, queryItemOffset]
+        let url = components!.url!
+        // request stuff
+        var request = URLRequest(url: url)
+        request.addValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+        
+        // start the session
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            // session completed
+            if let error = error {
+                print("There was an error with the Fetching the Saved Songs: ", error)
+            }
+            
+            // get the data
+            if let data = data, let dataString = String(data: data, encoding: .utf8) {
+                print(dataString)
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+            }
+        }
+        task.resume()
+    }
+    
 }

@@ -22,7 +22,7 @@ class ViewController: UIViewController, SPTSessionManagerDelegate {
      sessionManager: manages session such as authentication
     */
     var user = User(uri: "", imageUrl: nil, displayName: "", id: "")
-    var accessToken = ""
+    var accessToken: String? = nil
     let SpotifyClientID = "e5ee5963d8b34a53ae9c9f74f48c30eb"
     let SpotifyRedirectURL = URL(string: "spotify-ios-quick-start://spotify-login-callback")!
     lazy var configuration = SPTConfiguration(
@@ -44,7 +44,9 @@ class ViewController: UIViewController, SPTSessionManagerDelegate {
     // MARK: - IB Outlets
     @IBOutlet var welcomeLabel: UILabel!
     @IBOutlet var profileImageView: UIImageView!
+    @IBOutlet var likedSongsButton: UIButton!
     
+    @IBOutlet var loginButton: UIButton!
     
     // MARK: - IB Action Functions
     
@@ -53,6 +55,19 @@ class ViewController: UIViewController, SPTSessionManagerDelegate {
     */
     @IBAction func getSongsButtonPressed(_ sender: Any) {
         print("time to get some gd songz")
+        
+        guard let token = accessToken else {
+            print("Do not have an access token to perform action. Please authenticate.")
+            return
+        }
+        SpotifyAPI.fetchSavedSongs(accessToken: token) { (playlist) in
+            guard let playlist = playlist else {
+                print("In getSongsButtonPressed callback. Nil Playlist object.")
+                return
+            }
+            
+            print("we got a playlist!")
+        }
     }
     
     /*
@@ -60,7 +75,7 @@ class ViewController: UIViewController, SPTSessionManagerDelegate {
      Note: sessionManager callbacks are called depending on the success of the authorization
     */
     @IBAction func loginButtonPressed(_ sender: Any) {
-        let requestedScopes: SPTScope = [.appRemoteControl, .userReadPrivate, .userReadEmail, .userReadBirthDate]
+        let requestedScopes: SPTScope = [.appRemoteControl, .userReadPrivate, .userReadEmail, .userReadBirthDate, .userLibraryRead]
         self.sessionManager.initiateSession(with: requestedScopes, options: .default)
     }
     
@@ -76,7 +91,7 @@ class ViewController: UIViewController, SPTSessionManagerDelegate {
         accessToken = session.accessToken
         
         // get the user's information and set userID property
-        SpotifyAPI.getUserInfo(accessToken: accessToken, completion: { (userOptional) -> Void in
+        SpotifyAPI.getUserInfo(accessToken: session.accessToken, completion: { (userOptional) -> Void in
             if let user = userOptional {
                 print("Back in ViewController. Got a valid user.")
                 
@@ -93,7 +108,7 @@ class ViewController: UIViewController, SPTSessionManagerDelegate {
                             self.profileImageView.image = image
                             self.profileImageView.layer.borderWidth = 1.0
                             self.profileImageView.layer.masksToBounds = false
-                            self.profileImageView.layer.borderColor = UIColor.blue.cgColor
+                            self.profileImageView.layer.borderColor = UIColor.white.cgColor
                             self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2
                             self.profileImageView.clipsToBounds = true
                         }
@@ -131,6 +146,11 @@ class ViewController: UIViewController, SPTSessionManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        likedSongsButton.layer.cornerRadius = 20
+        //ikedSongsButton.clipsToBounds = true
+        loginButton.layer.cornerRadius = 20
+        //loginButton.layer.clipsToBounds = false
     }
 }
 
