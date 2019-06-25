@@ -66,7 +66,7 @@ class ViewController: UIViewController, SPTSessionManagerDelegate {
                 return
             }
             
-            print("we got a playlist!")
+            print("we got a playlist!", playlist)
         }
     }
     
@@ -147,9 +147,9 @@ class ViewController: UIViewController, SPTSessionManagerDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        likedSongsButton.layer.cornerRadius = 20
+        likedSongsButton.layer.cornerRadius = 22.5
         //ikedSongsButton.clipsToBounds = true
-        loginButton.layer.cornerRadius = 20
+        loginButton.layer.cornerRadius = 22.5
         //loginButton.layer.clipsToBounds = false
     }
 }

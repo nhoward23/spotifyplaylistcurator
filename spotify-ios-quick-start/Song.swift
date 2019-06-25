@@ -14,5 +14,7 @@ struct Song {
     var title: String
     var artist: String
     var album: String
+    var time: String
+    
     
 }

@@ -11,6 +11,10 @@ import Foundation
 
 struct Playlist {
     
-    var songs: [Song]
+    // these are parrallel arrays. 
+    var songIDs: [String]
+    var songPopularities: [Int]
+    var datesAdded: [String]
+    var next: String 
     
 }
